@@ -1,0 +1,14 @@
+*.iml
+*.sublime-workspace
+.gradle/
+.idea/
+.virtualenv
+build/
+gradle/
+gradlew
+gradlew.bat
+
+# Elastic Beanstalk Files
+#.elasticbeanstalk/*
+#!.elasticbeanstalk/*.cfg.yml
+#!.elasticbeanstalk/*.global.yml

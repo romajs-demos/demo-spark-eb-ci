@@ -1,0 +1,10 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"folder_exclude_patterns": ["build", ".gradle", "gradle", ".idea", ".virtualenv"],
+			"file_exclude_patterns": ["gradlew", "gradlew.bat", "LICENSE", "*.iml"],
+		}
+	]
+}

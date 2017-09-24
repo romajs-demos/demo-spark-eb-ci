@@ -1,0 +1,41 @@
+group 'com.romajs'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'application'
+apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+mainClassName = mainClassFile
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+buildscript {
+	repositories {
+		jcenter()
+	}
+	dependencies {
+		classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+	}
+}
+
+jar {
+	manifest {
+		attributes "Main-Class": mainClassFile
+	}
+}
+
+shadowJar {
+	archiveName = "${baseName}-shadow.${extension}"
+}
+
+dependencies {
+	compile "log4j:log4j:1.2.12"
+//	compile "org.slf4j:slf4j-api:1.7.21"
+	compile "org.slf4j:slf4j-log4j12:1.7.21"
+	compile "com.jcabi:jcabi-log:0.17.1"
+	compile "com.sparkjava:spark-core:2.6.0"
+	testCompile "junit:junit:4.12"
+}

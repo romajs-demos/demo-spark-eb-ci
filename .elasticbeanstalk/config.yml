@@ -1,0 +1,13 @@
+branch-defaults:
+  develop:
+    environment: demo-spark-eb-ci-dev
+  master:
+    environment: demo-spark-eb-ci
+  release:
+    environment: demo-spark-eb-ci-hml
+deploy:
+  artifact: ./build/libs/demo-spark-eb-ci-shadow.jar
+global:
+  application_name: demo-spark-eb-ci
+  default_platform: Java 8
+  default_region: us-east-1

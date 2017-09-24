@@ -1,0 +1,56 @@
+# Java Gradle CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "build.gradle" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run:
+          name: Install Gradle dependencies
+          command: gradle dependencies
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "build.gradle" }}
+
+      - run:
+          name: Run Gradle tests
+          command: gradle test
+
+      - run:
+          name: Install Python and PIP
+          command: sudo apt-get update && sudo apt-get install -y python-setuptools python python-pip
+      
+      - run:
+          name: Install AWS-EB-CLI
+          command: sudo pip install awsebcli
+
+      - run:
+          name: Create shadow jar
+          command: gradle shadowJar
+
+      - deploy:
+          name: Deploy to AWS ElasticBeanstalk using settings from ./.elasticbeanstalk/config.yml
+          command:  |
+            if ./.elasticbeanstalk/check_eb_branch.py $(git rev-parse --abbrev-ref HEAD); then
+               eb deploy
+            fi
+          # command:  |
+          #   if [ "${CIRCLE_BRANCH}" == "master" ]; then
+          #     eb use demo-spark-eb-ci
+          #     eb deploy --profile default
+          #   fi
