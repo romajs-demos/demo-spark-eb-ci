@@ -32,23 +32,31 @@ jobs:
           command: gradle test
 
       - run:
-          name: Install Python and PIP
-          command: sudo apt-get update && sudo apt-get install -y python-setuptools python python-pip
-      
-      - run:
-          name: Install AWS-EB-CLI
-          command: sudo pip install awsebcli
+          name: Jacoco test report
+          command: gradle jacocoTestReport
 
       - run:
-          name: Create shadow jar
-          command: gradle shadowJar
+          name: Upload code coverage
+          command: bash <(curl -s https://codecov.io/bash)
 
-      - deploy:
-          name: Deploy to AWS ElasticBeanstalk using settings from ./.elasticbeanstalk/config.yml
-          command:  |
-            if ./.elasticbeanstalk/check_eb_branch.py $(git rev-parse --abbrev-ref HEAD); then
-               eb deploy
-            fi
+#      - run:
+#          name: Install Python and PIP
+#          command: sudo apt-get update && sudo apt-get install -y python-setuptools python python-pip
+#
+#      - run:
+#          name: Install AWS-EB-CLI
+#          command: sudo pip install awsebcli
+#
+#      - run:
+#          name: Create shadow jar
+#          command: gradle shadowJar
+#
+#      - deploy:
+#          name: Deploy to AWS ElasticBeanstalk using settings from ./.elasticbeanstalk/config.yml
+#          command:  |
+#            if ./.elasticbeanstalk/check_eb_branch.py $(git rev-parse --abbrev-ref HEAD); then
+#               eb deploy
+#            fi
           # command:  |
           #   if [ "${CIRCLE_BRANCH}" == "master" ]; then
           #     eb use demo-spark-eb-ci

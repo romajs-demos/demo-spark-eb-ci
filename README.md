@@ -3,6 +3,7 @@
 This is a simple demo Java Spark application, with continuous delivery integration, using GitFlow, CircleCI, EB cli and AWS ElasticBeanstalk.
 
 [![CircleCI](https://circleci.com/gh/romajs/demo-spark-eb-ci.svg?style=svg)](https://circleci.com/gh/romajs/demo-spark-eb-ci)
+[![codecov](https://codecov.io/gh/romajs/demo-spark-eb-ci/branch/master/graph/badge.svg)](https://codecov.io/gh/romajs/demo-spark-eb-ci)
 
 ## Featuring
 
@@ -12,6 +13,7 @@ This is a simple demo Java Spark application, with continuous delivery integrati
 * AWS ElasticBeanstalk deployment with EB cli
 * CircleCI integration with EB cli
 * EB cli and GitFlow branch integration
+* Code coverage
 
 ## To do
 
